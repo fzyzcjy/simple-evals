@@ -63,12 +63,14 @@ class ChatCompletionSampler(SamplerBase):
         trial = 0
         while True:
             try:
-                response = self.client.chat.completions.create(
+                call_kwargs = dict(
                     model=self.model,
                     messages=message_list,
                     temperature=self.temperature,
                     max_tokens=self.max_tokens,
                 )
+                print(f"ChatCompletionSampler call client.chat.completions.create with {call_kwargs=}")
+                response = self.client.chat.completions.create(**call_kwargs)
                 content = response.choices[0].message.content
                 if content is None:
                     raise ValueError("OpenAI API returned empty response; retrying")
