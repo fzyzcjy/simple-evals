@@ -1,3 +1,4 @@
+import os
 import time
 from typing import Any
 
@@ -70,6 +71,19 @@ class ChatCompletionSampler(SamplerBase):
                     max_tokens=self.max_tokens,
                 )
                 print(f"ChatCompletionSampler call client.chat.completions.create with {call_kwargs=}")
+
+                if bool(int(os.environ.get("SIMPLE_EVALS_HACK_REQUESTS_POST", "0"))):
+                    print("HACK!!!! do requests.post")
+                    import requests
+                    resp = requests.post(f"{self.client.base_url}chat/completions", json=call_kwargs)
+                    resp.raise_for_status()
+                    print(f"{resp.text=}")
+                    return SamplerResponse(
+                        response_text="FAKE_TEXT",
+                        response_metadata={},
+                        actual_queried_message_list=message_list,
+                    )
+
                 response = self.client.chat.completions.create(**call_kwargs)
                 content = response.choices[0].message.content
                 if content is None:
