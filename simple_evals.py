@@ -63,6 +63,12 @@ def main():
     args = parser.parse_args()
 
     models = {
+        "o4-mini-with-chat-completion": ChatCompletionSampler(
+            model="o4-mini-2025-04-16",
+            # NOTE cannot configure `reasoning`
+            # reasoning_model=True,
+        ),
+
         # Reasoning Models
         "o3": ResponsesSampler(
             model="o3-2025-04-16",
@@ -339,7 +345,8 @@ def main():
         for eval_name in evals_list:
             try:
                 evals[eval_name] = get_evals(eval_name, args.debug)
-            except Exception:
+            except Exception as e:
+                print(f"error: {e=}")
                 print(f"Error: eval '{eval_name}' not found.")
                 return
     else:
