@@ -68,7 +68,11 @@ class GPQAEval(Eval):
             )
             convo = actual_queried_prompt_messages + [dict(content=response_text, role="assistant")]
             return SingleEvalResult(
-                html=html, score=score, convo=convo, metrics={"chars": len(response_text)}
+                html=html, score=score, convo=convo, metrics={"chars": len(response_text)},
+                example_level_metadata={
+                    "actual_queried_prompt_messages": actual_queried_prompt_messages,
+                    "response_text": response_text,
+                },
             )
 
         results = common.map_with_progress(fn, self.examples)
