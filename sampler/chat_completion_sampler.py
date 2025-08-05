@@ -1,3 +1,4 @@
+import json
 import os
 import time
 from typing import Any
@@ -85,7 +86,7 @@ class ChatCompletionSampler(SamplerBase):
                     )
 
                 response = self.client.chat.completions.create(**call_kwargs)
-                print(f"{response=}")
+                print(f"{json.dumps(call_kwargs)=} {response=}")
                 content = response.choices[0].message.content
                 if content is None:
                     raise ValueError("OpenAI API returned empty response; retrying")
