@@ -73,15 +73,21 @@ def main():
             # NOTE cannot configure `reasoning`
             # reasoning_model=True,
         ),
-        "o4-mini-with-chat-completion-and-64k-gen": ChatCompletionSampler(
+        "o4-mini-with-chat-completion-and-zero-temperature": ChatCompletionSampler(
             model="o4-mini-2025-04-16",
-            max_tokens=65536,
             # NOTE cannot configure `reasoning`
             # reasoning_model=True,
+            temperature=0.0,
         ),
         "o4-mini-with-chat-completion-and-4k-gen": ChatCompletionSampler(
             model="o4-mini-2025-04-16",
             max_tokens=4096,
+            # NOTE cannot configure `reasoning`
+            # reasoning_model=True,
+        ),
+        "o4-mini-with-chat-completion-and-64k-gen": ChatCompletionSampler(
+            model="o4-mini-2025-04-16",
+            max_tokens=65536,
             # NOTE cannot configure `reasoning`
             # reasoning_model=True,
         ),
