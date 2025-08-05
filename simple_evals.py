@@ -79,6 +79,12 @@ def main():
             # NOTE cannot configure `reasoning`
             # reasoning_model=True,
         ),
+        "o4-mini-with-chat-completion-and-4k-gen": ChatCompletionSampler(
+            model="o4-mini-2025-04-16",
+            max_tokens=4096,
+            # NOTE cannot configure `reasoning`
+            # reasoning_model=True,
+        ),
 
         # Reasoning Models
         "o3": ResponsesSampler(
