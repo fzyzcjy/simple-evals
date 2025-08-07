@@ -89,7 +89,9 @@ class ChatCompletionSampler(SamplerBase):
                 print(f"{json.dumps(call_kwargs)=} {response=}")
                 content = response.choices[0].message.content
                 if content is None:
-                    raise ValueError("OpenAI API returned empty response; retrying")
+                    print("HACK: see content is None, this may be error, or may be reasoning is not done yet. hack and make is empty string.")
+                    content = ""
+                    # raise ValueError("OpenAI API returned empty response; retrying")
                 return SamplerResponse(
                     response_text=content,
                     response_metadata={"usage": response.usage},
